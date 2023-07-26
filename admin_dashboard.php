@@ -32,7 +32,7 @@ if(!isset($_SESSION['admin_id'])){
 
     <div class="row text-center">
 
-        <div class="col-12">
+        <div class="col-md-6 col-12">
             <h3> Registruj Clana </h3>
             <form action="register_member.php" method="post" enctype="multipart/form-data">
                 <div class="row">
@@ -75,7 +75,32 @@ if(!isset($_SESSION['admin_id'])){
 
             </form>
         </div>
+        
 
+        <div class="col-md-6 col-12">
+            <h3> Registruj Trenera </h3>
+            <form action="register_trainer.php" method="post">
+                <div class="row">
+                    <div class="col-12">
+                        Ime: <input type="text" class="form-control" name="trainer_name">
+                    </div>
+                    <div class="col-12">
+                    Email: <input type="email" class="form-control" name="trainer_email">
+
+                    </div>
+                    <div class="col-12">
+                    Broj Telefona: <input type="text" class="form-control" name="trainer_phone_number">
+
+                    </div>
+                    <div class="col-12">
+                        <input class="btn btn-primary mt-3" type="submit" value="Registruj Trenera">
+
+                    </div>
+                    
+                </div>
+
+            </form>
+        </div>
     </div>
 
 </div>
