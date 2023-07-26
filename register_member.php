@@ -43,7 +43,7 @@ $access_card_pdf_path, $trainer_id, $training_plan_id);
     $run = $conn->prepare($sql);
     $run->bind_param("si", $filename, $member_id);
     $run->execute();
-
+    $conn->close();
     $_SESSION['success_message'] = 'Uspesna registracija novog clana teretane';
     header('location: admin_dashboard.php');
     exit();

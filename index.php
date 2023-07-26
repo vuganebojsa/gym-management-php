@@ -21,16 +21,19 @@
            
             if(password_verify($password, $admin['password'])){
                 $_SESSION['admin_id'] = $admin['admin_id'];
+                $conn->close();
                 header('location: admin_dashboard.php');
             }
             else{
                 $_SESSION['error'] = "Username ili lozinka su neispravni.";
+                $conn->close();
                 header('location: index.php');
                 exit;
             }
 
         }else{
             $_SESSION['error'] = "Username ili lozinka su neispravni.";
+            $conn->close();
             header('location: index.php');
             exit;
         }

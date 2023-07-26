@@ -13,5 +13,5 @@
 
     $run->execute();
 
-    
+    $conn->close();
 ?>
