@@ -10,15 +10,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $sql = "insert into trainers(name, email, phone_number) 
 values(?, ?, ?)";
 
-$run = $conn->prepare($sql);
-$run->bind_param("sss",$name, $email, $phone_number);
+    $run = $conn->prepare($sql);
+    $run->bind_param("sss",$name, $email, $phone_number);
 
-$run->execute();
+    $run->execute();
 
-$conn->close();
-$_SESSION['success_message'] = 'Uspesna registracija novog trenera';
-header('location: admin_dashboard.php');
-exit();
+    $conn->close();
+    $_SESSION['success_message'] = 'Uspesna registracija novog trenera';
+    header('location: admin_dashboard.php');
+    exit();
 }
 
 

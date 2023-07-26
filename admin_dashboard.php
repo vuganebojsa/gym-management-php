@@ -28,6 +28,75 @@ if(!isset($_SESSION['admin_id'])){
 
 </div>
 <?php endif; ?>
+<div class="container">
+
+<a href="export.php?what=members" class="btn btn-success btn-sm">Export</a>
+</div>
+<div class="container">
+
+    <div class="row text-center">
+        <div class="col-12">
+            <h2> Clanovi </h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Created At</th>
+                    <th>Trainer</th>
+                    <th>Training Plan</th>
+                    <th>Action</th>
+                    <th>Access Card</th>
+                    <th>Photo</th>
+                    
+                    
+                </tr>    
+
+            </thead>
+            <tbody>
+        <?php
+        $sql = "select members.member_id as mid, members.name as mname, members.email as memail, members.phone_number as mphone_number, members.created_at as mcreated_at, 
+        trainers.name as tname, training_plans.name as tpname, members.access_card_pdf_path as maccess_card_pdf_path, members.photo_path as mphoto_path  from members left join trainers on members.trainer_id = trainers.trainer_id 
+        left join training_plans on members.training_plan_id = training_plans.training_plan_id";
+        $results = $conn->query($sql);
+        $results = $results->fetch_all(MYSQLI_ASSOC);
+
+        $conn->close();
+
+        foreach($results as $result):?>
+        <tr>
+        <td><?php echo $result['mname']; ?></td>
+        <td><?php echo $result['memail']; ?></th>
+        <td><?php echo $result['mphone_number']; ?></td>
+        <td><?php 
+        
+        $create_ate =  strtotime($result['mcreated_at']);
+        $new_date = date("F, jS Y", $create_ate);
+        echo $new_date;
+        ?></td>
+        <td><?php echo $result['tname']; ?></td>
+        <td><?php echo $result['tpname']; ?></td>
+        <td>
+            <form action="delete_member.php" method="POST">
+            <input type="hidden" name="member_id" value="<?php echo $result['mid']?>">
+            <button type="submit">DELETE</button>
+        </form>
+        </td>
+        <td><a href="<?php echo $result['maccess_card_pdf_path']; ?>" target="_blank">Access Card</a></td>
+        <td><img src="<?php echo $result['mphoto_path']?>" style="width=50px;height:50px;"></td>
+        </tr>
+
+        <?php endforeach; 
+        ?>
+
+</tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
 <div class="container register-member-form m-2 p-3">
 
     <div class="row text-center">
