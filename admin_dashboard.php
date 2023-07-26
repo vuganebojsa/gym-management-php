@@ -4,8 +4,6 @@ require_once 'config.php';
 if(!isset($_SESSION['admin_id'])){
     header('location: index.php');
 }
-
-$training_plans = [];
 ?>
 
 
@@ -20,8 +18,16 @@ $training_plans = [];
     <title>Admin Dashboard</title>
   </head>
 <body>
+<?php if(isset($_SESSION['success_message'])) : ?>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <?php 
+        echo $_SESSION['success_message'];
+        unset($_SESSION['success_message']);
+    ?>
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 
-
+</div>
+<?php endif; ?>
 <div class="container register-member-form m-2 p-3">
 
     <div class="row text-center">
@@ -38,17 +44,21 @@ $training_plans = [];
 
                     </div>
                     <div class="col-12">
-                    Broj Telefona: <input type="email" class="form-control" name="phone_number">
+                    Broj Telefona: <input type="text" class="form-control" name="phone_number">
 
                     </div>
                     <div class="col-12">
-                        <h4>Training Plan:</h4>
+                        <h4>Plan Treninga:</h4>
                         <select class="form-control" name="training_plan_id">
-                            <?php foreach($training_plans as $plan): ?>
-                                <option value="<?= $plan['plan_id'] ?>">
-                                    <?= $plan['name'] ?>
-                                </option>
-                            <?php endforeach; ?>
+                            <option value="" disabled selected>Plan Treninga</option>
+                            <?php
+                                $sql = "select training_plan_id, name from training_plans";
+                                $run = $conn->query($sql);
+                                $results = $run->fetch_all(MYSQLI_ASSOC);
+                                foreach($results as $result){
+                                    echo "<option value='" .$result['training_plan_id'] . "'>" . $result['name'] . "</option>";
+                                }
+                            ?>
                         </select>
                     </div>
                     <div class="col-12"> 
