@@ -4,6 +4,8 @@ require_once 'config.php';
 if(!isset($_SESSION['admin_id'])){
     header('location: index.php');
 }
+
+$training_plans = [];
 ?>
 
 
@@ -18,6 +20,54 @@ if(!isset($_SESSION['admin_id'])){
     <title>Admin Dashboard</title>
   </head>
 <body>
+
+
+<div class="container register-member-form m-2 p-3">
+
+    <div class="row text-center">
+
+        <div class="col-12">
+            <h3> Registruj Clana </h3>
+            <form action="register_member.php" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-12">
+                        Ime: <input type="text" class="form-control" name="name">
+                    </div>
+                    <div class="col-12">
+                    Email: <input type="email" class="form-control" name="email">
+
+                    </div>
+                    <div class="col-12">
+                    Broj Telefona: <input type="email" class="form-control" name="phone_number">
+
+                    </div>
+                    <div class="col-12">
+                        <h4>Training Plan:</h4>
+                        <select class="form-control" name="training_plan_id">
+                            <?php foreach($training_plans as $plan): ?>
+                                <option value="<?= $plan['plan_id'] ?>">
+                                    <?= $plan['name'] ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="col-12"> 
+                        <input type="hidden" name="photo_path" id="photoPathInput">
+                        <div id="dropzone-upload" class="dropzone"></div>
+
+                    </div>
+                    <div class="col-12">
+                        <input class="btn btn-primary mt-3" type="submit" value="Registruj Clana">
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+</div>
 
 
 
